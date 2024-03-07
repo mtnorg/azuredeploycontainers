@@ -56,6 +56,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'demowebtrial'
-          slot-name: 'Production'
+          slot-name: 'development'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3DA4E64CBADC4EE4B165FDF26D2B5371 }}
-          package: .
+          package: "./build"
