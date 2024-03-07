@@ -58,4 +58,4 @@ jobs:
           app-name: 'demowebtrial'
           slot-name: 'development'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3DA4E64CBADC4EE4B165FDF26D2B5371 }}
-          package: "./build"
+          package: .
