@@ -4,15 +4,15 @@ import { AzuredeploycontainersService } from '../services/azuredeploycontainers.
 
 @Controller('azuredeploycontainers')
 export class AzuredeploycontainersController {
-    @Inject(AzuredeploycontainersService)
-    private readonly azuredeploycontainersService: AzuredeploycontainersService;
+  @Inject(AzuredeploycontainersService)
+  private readonly azuredeploycontainersService: AzuredeploycontainersService;
 
-    constructor(azuredeploycontainersService: AzuredeploycontainersService) {
-        this.azuredeploycontainersService = azuredeploycontainersService;
-    }
+  constructor(azuredeploycontainersService: AzuredeploycontainersService) {
+    this.azuredeploycontainersService = azuredeploycontainersService;
+  }
 
-    @Get()
-    findAll(): string {
-        return this.azuredeploycontainersService.findAll();
-    }
+  @Get()
+  findAll(): string {
+    return this.azuredeploycontainersService.findAll();
+  }
 }

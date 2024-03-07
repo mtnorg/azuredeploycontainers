@@ -1,3 +1,1 @@
-export interface Azuredeploycontainers {
-    
-}
+export interface Azuredeploycontainers {}

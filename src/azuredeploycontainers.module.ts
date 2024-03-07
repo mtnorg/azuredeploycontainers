@@ -4,7 +4,7 @@ import { AzuredeploycontainersController } from './controller/azuredeploycontain
 import { AzuredeploycontainersService } from './services/azuredeploycontainers.service';
 
 @Module({
-    controllers: [AzuredeploycontainersController],
-    providers: [AzuredeploycontainersService]
+  controllers: [AzuredeploycontainersController],
+  providers: [AzuredeploycontainersService],
 })
 export class AzuredeploycontainersModule {}
