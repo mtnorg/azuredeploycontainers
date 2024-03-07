@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "{{project.name}}",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -34,8 +34,14 @@
     "format:fix": "nx format:write",
     "format": "prettier --config ./.prettierrc --ignore-path .gitignore --write \"**/*.{ts,tsx,js,jsx,html,yml,md}\"",
     "format:check": "prettier --config .prettierrc --check \"**/*.{ts,tsx,js,jsx,html,yml,md}\"",
-    "prettier-watch": "onchange \"lib/**/*.ts\" \"test/**/*.ts\" -- prettier --write "
+    "prettier-watch": "onchange \"lib/**/*.ts\" \"test/**/*.ts\" -- prettier --write {{changed}}"
   },
+  {{!-- "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  }, --}}
   "browserslist": {
     "production": [
       ">0.2%",
