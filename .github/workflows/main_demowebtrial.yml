@@ -26,14 +26,14 @@ jobs:
           npm install
           npm run build --if-present
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+      # - name: Zip artifact for deployment
+      #   run: zip release.zip ./* -r
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: node-app
-          path: release.zip
+      # - name: Upload artifact for deployment job
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: node-app
+      #     path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -43,19 +43,19 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: node-app
+      # - name: Download artifact from build job
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: node-app
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
+      # - name: Unzip artifact for deployment
+      #   run: unzip release.zip
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'demowebtrial'
-          slot-name: 'development'
+          slot-name: 'production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3DA4E64CBADC4EE4B165FDF26D2B5371 }}
           package: .
