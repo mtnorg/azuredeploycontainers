@@ -34,7 +34,7 @@ jobs:
         run: npm run format:check
 
       - name: Check lint
-        run: npm run lint:check
+        run: npm run lint
 
       - name: Build CLI
         run: npm run build
