@@ -27,7 +27,7 @@ jobs:
           uses: 'azure/aci-deploy@v1'
           with:
             resource-group: azuregithub
-            dns-name-label: url-for-container
+            dns-name-label: containerazuredemo.azurecr.io
             image: containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
             cpu: 1   #Optional
             memory: 0.1   #Optional
