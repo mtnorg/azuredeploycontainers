@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # The /app directory should act as the main application directory
-WORKDIR /usr/src
+WORKDIR /usr/src/*
 
 # Copy the app package and package-lock.json file
 COPY package.json yarn.lock ./
@@ -17,5 +17,5 @@ RUN npm install \
 
 EXPOSE 3000
 
-# Start the app using serve command
-CMD [ "serve", "-s", "build" ]
+# Start the app using start command
+CMD [ "yarn", "start" ]
