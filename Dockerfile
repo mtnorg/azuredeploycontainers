@@ -2,14 +2,12 @@
 FROM node:18-alpine
 
 # The /app directory should act as the main application directory
-WORKDIR /app
+WORKDIR /usr/src
 
 # Copy the app package and package-lock.json file
-COPY package*.json ./
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
-# Copy local directories to the current local directory of our docker image (/app)
-COPY ./src ./src
-COPY ./public ./public
 
 # Install node packages, install serve, build the app, and remove dependencies at the end
 RUN npm install \
