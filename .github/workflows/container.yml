@@ -1,43 +1,64 @@
-# name: Linux_Container_Workflow
-# on: [push]
+name: Deploy Microservices to AKS
+on: [push]
 
-# jobs:
-#   build-and-deploy:
-#     runs-on: ubuntu-latest
-#     if: ${{ github.actor != 'dependabot[bot]' }}
-#     steps:
-#       # checkout the repo
-#       - name: 'Checkout GitHub Action'
-#         uses: actions/checkout@master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      # checkout the repo
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@master
 
-#       - name: 'Login via Azure CLI'
-#         uses: azure/login@v1
-#         with:
-#           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Set imagePullSecret
+        uses: azure/k8s-create-secret@v4
+        with:
+          namespace: 'myapp'
+          secret-name: 'azure-cr'
+          container-registry-url: 'containerazuredemo.azurecr.io'
+          container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        id: create-secret    
 
-#       - uses: azure/docker-login@v1
-#         with:
-#           login-server: containerazuredemo.azurecr.io
-#           username: ${{ secrets.REGISTRY_USERNAME }}
-#           password: ${{ secrets.REGISTRY_PASSWORD }}
-#       - run: |
-#           docker build . -t containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
-#           docker push containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
+      - uses: azure/docker-login@v1
+        with:
+          login-server: containerazuredemo.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build . -t containerazuredemo.azurecr.io/nodejssampleapp:latest
+          docker push containerazuredemo.azurecr.io/nodejssampleapp:latest
 
-#       - name: Deploy to Azure App Service
-#         uses: azure/webapps-deploy@v2
-#         with:
-#           app-name: containerurl
-#           images: |
-#             containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
+      - name: Configure kubectl
+        uses: azure/aks-set-context@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          cluster-name: containerakscluster
+          resource-group: azuregithub
+  
+      - name: Deploy microservices to AKS
+        run: |
+          kubectl apply -f ./k8
 
-#       # - name: 'Deploy to Azure Container Instances'
-#       #   uses: 'azure/aci-deploy@v1'
-#       #   with:
-#       #     resource-group: azuregithub
-#       #     dns-name-label: containerazuredemo
-#       #     image: containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
-#       #     registry-username: ${{ secrets.REGISTRY_USERNAME }}
-#       #     registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-#       #     name: containerazuredemo
-#       #     location: 'east us'
+      # - name: Deploy to Azure App Service
+      #   uses: azure/webapps-deploy@v2
+      #   with:
+      #     app-name: containerurl
+      #     images: |
+      #       containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}     
+
+      # - name: 'Deploy to Azure Container Instances'
+      #   uses: 'azure/aci-deploy@v1'
+      #   with:
+      #     resource-group: azuregithub
+      #     dns-name-label: containerazuredemo
+      #     image: containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
+      #     registry-username: ${{ secrets.REGISTRY_USERNAME }}
+      #     registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+      #     name: containerazuredemo
+      #     location: 'east us'
