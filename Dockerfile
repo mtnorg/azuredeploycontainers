@@ -11,8 +11,9 @@ RUN yarn install --frozen-lockfile
 # Install node packages, install serve, build the app, and remove dependencies at the end
 RUN yarn install
 
-EXPOSE 3000
+# EXPOSE 3000
 RUN npm run build
+RUN npm run start
 # Start the app using start command
 # CMD [ "node", "src/index.js" , "yarn start"]
 
