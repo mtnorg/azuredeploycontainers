@@ -15,4 +15,5 @@ RUN npm install
 EXPOSE 3000
 
 # Start the app using start command
-CMD [ "node", "src/index.js" , "yarn start"]
+# CMD [ "node", "src/index.js" , "yarn start"]
+CMD [ "node", "yarn start"]
