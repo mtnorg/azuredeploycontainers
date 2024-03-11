@@ -24,13 +24,20 @@ jobs:
           docker build . -t containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
           docker push containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
 
-      - name: 'Deploy to Azure Container Instances'
-        uses: 'azure/aci-deploy@v1'
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v2
         with:
-          resource-group: azuregithub
-          dns-name-label: containerazuredemo
-          image: containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
-          registry-username: ${{ secrets.REGISTRY_USERNAME }}
-          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          name: containerazuredemo
-          location: 'east us'
+          app-name: containerurl
+          images: |
+            containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}     
+
+      # - name: 'Deploy to Azure Container Instances'
+      #   uses: 'azure/aci-deploy@v1'
+      #   with:
+      #     resource-group: azuregithub
+      #     dns-name-label: containerazuredemo
+      #     image: containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
+      #     registry-username: ${{ secrets.REGISTRY_USERNAME }}
+      #     registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+      #     name: containerazuredemo
+      #     location: 'east us'
