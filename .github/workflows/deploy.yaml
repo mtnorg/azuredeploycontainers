@@ -9,7 +9,7 @@ env:
     AZURE_CONTAINER_REGISTRY: containerazuredemo
     CLUSTER_NAME: containerakscluster
     CLUSTER_RESOURCE_GROUP: azuregithub
-    CONTAINER_NAME: nodejssampleapp
+    CONTAINER_NAME: containerazuredemo
     DEPLOYMENT_MANIFEST_PATH: |
         ./k8/deployment.yaml
         ./k8/service.yaml
