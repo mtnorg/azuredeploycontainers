@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-        
+
       - name: Check format
         run: npm run format:check
 
