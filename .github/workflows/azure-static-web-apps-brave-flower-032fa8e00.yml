@@ -20,6 +20,9 @@ jobs:
           submodules: true
           lfs: false
 
+      - name: Install dependencies
+        run: yarn install
+      
       - name: Build artifacts
         run: yarn run build
     
