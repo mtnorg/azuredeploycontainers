@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azurecontainerpipeline
+  labels:
+    app: azurecontainerpipeline
+  namespace: azuremicroservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azurecontainerpipeline
+  template:
+    metadata:
+      labels:
+        app: azurecontainerpipeline
+    spec:
+      containers:
+        - name: azurecontainerpipeline
+          image: microservicecontainer1.azurecr.io/microserviceimage:latest
+          ports:
+            - containerPort: 3000
