@@ -22,8 +22,8 @@ jobs:
       - name: Set imagePullSecret
         uses: azure/k8s-create-secret@v4
         with:
-          namespace: 'nodejssampleapp'
-          secret-name: 'azure-cr'
+          # namespace: 'nodejssampleapp'
+          secret-name: 'azurecr'
           container-registry-url: 'containerazuredemo.azurecr.io'
           container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
           container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
