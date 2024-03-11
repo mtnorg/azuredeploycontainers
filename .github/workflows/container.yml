@@ -14,7 +14,11 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
+      - uses: azure/aks-set-context@v3
+        with:
+          resource-group: 'azuregithub'
+          cluster-name: 'containerakscluster'
+
       - name: Set imagePullSecret
         uses: azure/k8s-create-secret@v4
         with:
@@ -23,7 +27,7 @@ jobs:
           container-registry-url: 'containerazuredemo.azurecr.io'
           container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
           container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-        id: create-secret    
+        id: create-secret
 
       - uses: azure/docker-login@v1
         with:
@@ -40,7 +44,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           cluster-name: containerakscluster
           resource-group: azuregithub
-  
+
       - name: Deploy microservices to AKS
         run: |
           kubectl apply -f ./k8
@@ -50,7 +54,7 @@ jobs:
       #   with:
       #     app-name: containerurl
       #     images: |
-      #       containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}     
+      #       containerazuredemo.azurecr.io/nodejssampleapp:${{ github.sha }}
 
       # - name: 'Deploy to Azure Container Instances'
       #   uses: 'azure/aci-deploy@v1'
