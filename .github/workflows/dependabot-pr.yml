@@ -27,9 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
-
+        
       - name: Check format
         run: npm run format:check
 
