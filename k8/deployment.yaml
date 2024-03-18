@@ -17,3 +17,14 @@ spec:
           image: containerazuredemo.azurecr.io/nodejssampleapp:latest
           ports:
             - containerPort: 3000
+         volumeMounts:
+            - mountPath: /usr/src/app/src/components/Header.tsx
+              name: header-volume
+              subPath: Header.tsx
+      volumes:
+        - name: header-volume
+          configMap:
+            name: header-configmap
+            items:
+              - key: Header.tsx
+                path: Header.tsx   
