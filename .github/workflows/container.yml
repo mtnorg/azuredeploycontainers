@@ -20,7 +20,7 @@ jobs:
           cluster-name: 'containerakscluster'
 
       - name: Set imagePullSecret
-        uses: azure/k8s-create-secret@v4
+        uses: azure/k8s-create-secret@v5
         with:
           # namespace: 'nodejssampleapp'
           secret-name: 'azurecr'
